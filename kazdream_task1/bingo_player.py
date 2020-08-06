@@ -2,7 +2,7 @@ from random import randint
 from copy import deepcopy
 from typing import List
 
-from utils import Observer
+from utils import Observer, Subject
 
 
 class BingoPlayer(Observer):
@@ -50,6 +50,7 @@ class BingoPlayer(Observer):
         self._name = name
         # Сформировать билетик с пятью случайными числами в диапазоне от 1 до 99
         self._ticket = [randint(1, 99) for _ in range(5)]
+        print(self._ticket)
 
     def clone(self) -> 'BingoPlayer':
         """
@@ -60,6 +61,16 @@ class BingoPlayer(Observer):
             BingoPlayer: игрок в бинго
         """
         return deepcopy(self)
+
+    def update(self, subject: Subject) -> None:
+        current_number = subject.number
+        if current_number in self._ticket:
+            self._ticket.remove(current_number)
+            if self._ticket == []:
+                print('stop')
+                print(self._name)
+                subject.game_state = False
+
 
 
 if __name__ == '__main__':

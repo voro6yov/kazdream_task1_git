@@ -1,4 +1,5 @@
 from typing import List
+from random import randint
 
 from utils import Observer, Subject
 from bingo_player import BingoPlayer
@@ -14,10 +15,19 @@ class BingoGame(Subject):
         self._player_prototype = player_prototype
         self._observers: List[Observer] = []
         self._number = 0
+        self._game_state = True
 
     @property
     def number(self) -> int:
         return self._number
+
+    @property
+    def game_state(self) -> bool:
+        return self._game_state
+
+    @game_state.setter
+    def game_state(self, a_state: bool) -> None:
+        self._game_state = a_state
 
     def attach(self, observer: 'Observer') -> None:
         self._observers.append(observer)
@@ -27,13 +37,26 @@ class BingoGame(Subject):
 
     def notify(self) -> None:
         for observer in self._observers:
-            observer.update()
+            observer.update(self)
 
     def initialize_players(self, player_names: List[str]) -> None:
         for player_name in player_names:
             self._player_prototype.initialize(player_name)
             a_player: BingoPlayer = self._player_prototype.clone()
             self.attach(a_player)
+
+    def start_game(self) -> None:
+        dropped_numbers: List[int] = []
+        while self._game_state:
+            self._number = randint(1, 99)
+            if self._number not in dropped_numbers:
+                dropped_numbers.append(self._number)
+                # print(self._number)
+                self.notify()
+            else:
+                continue
+        
+        print(len(dropped_numbers))
 
 
 
@@ -46,4 +69,5 @@ if __name__ == '__main__':
         'Ralph Waldo Emerson'
         ]
     a_game = BingoGame(BingoPlayer())
-    print(a_game.number)
+    a_game.initialize_players(philosopher_names)
+    a_game.start_game()
