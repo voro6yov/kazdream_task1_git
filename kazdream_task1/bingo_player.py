@@ -2,8 +2,10 @@ from random import randint
 from copy import deepcopy
 from typing import List
 
+from utils import Observer
 
-class BingoPlayer:
+
+class BingoPlayer(Observer):
     """
     Игрок в Бинго. У игрока есть имя и билетик с 5 случайными числами( числа от 1 до 99). Для
     создания новых игроков используется паттерн Прототип.

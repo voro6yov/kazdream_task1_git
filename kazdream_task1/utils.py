@@ -1,5 +1,7 @@
 from abc import ABC, abstractmethod
 
+__all__ = ['Subject', 'Observer']
+
 
 class Subject(ABC):
     """
@@ -36,7 +38,10 @@ class Observer(ABC):
     обнавления состояния наблюдателя.
     """
     @abstractmethod
-    def update(self) -> None:
+    def update(self, subject: Subject) -> None:
         """
         Сообщает наблюдателю об изменении состояния субъекта.
+
+        Args:
+            subject (Subject): наблюдаемый субъект
         """
