@@ -2,15 +2,17 @@ from random import randint
 from copy import deepcopy
 from typing import List
 
+
 class BingoPlayer:
     """
-    Игрок в Бинго. У игрока есть имя и билетик с 5 случайными числами( числа от 1 до 99). Для создания
-    новых игроков в классе используется паттерн Прототип.
+    Игрок в Бинго. У игрока есть имя и билетик с 5 случайными числами( числа от 1 до 99). Для
+    создания новых игроков используется паттерн Прототип.
     """
+
     def __init__(self) -> None:
         """
-        Конструктор класса. При инициализации прототипа объявляются закрытые атрибуты класса, с присвоением
-        им значений None.
+        Конструктор класса. При инициализации прототипа объявляются закрытые атрибуты класса,
+        с присвоением им значений None.
         """
         self._name: str = None
         self._ticket: List[int] = None
@@ -49,19 +51,19 @@ class BingoPlayer:
 
     def clone(self) -> 'BingoPlayer':
         """
-        Клонирует прототип игрока. Перед вызовом метода обязательно необходимо инициализировать прототип.
+        Клонирует прототип игрока. Перед вызовом метода обязательно необходимо инициализировать
+        прототип.
 
         Returns:
             BingoPlayer: игрок в бинго
         """
         return deepcopy(self)
 
+
 if __name__ == '__main__':
     player_prototype = BingoPlayer()
 
-    for name in ['Valentin', 'Egor']:
-        player_prototype.initialize(name)
+    for a_name in ['Valentin', 'Egor']:
+        player_prototype.initialize(a_name)
         a_player = player_prototype.clone()
         print(f"Player: {a_player.name} has ticket {a_player.ticket}")
-
-    
