@@ -1,5 +1,5 @@
 from typing import List
-from random import randint
+from random import choice
 
 from utils import Observer, Subject
 from bingo_player import BingoPlayer
@@ -46,17 +46,13 @@ class BingoGame(Subject):
             self.attach(a_player)
 
     def start_game(self) -> None:
-        dropped_numbers: List[int] = []
+        numbers_in_the_game: List[int] = list(range(1, 100))
+        print('Welcome to the Bingo game!')
         while self._game_state:
-            self._number = randint(1, 99)
-            if self._number not in dropped_numbers:
-                dropped_numbers.append(self._number)
-                # print(self._number)
-                self.notify()
-            else:
-                continue
-        
-        print(len(dropped_numbers))
+            self._number = choice(numbers_in_the_game)
+            numbers_in_the_game.remove(self._number)
+            print(f'We got number: {self._number}')
+            self.notify()
 
 
 

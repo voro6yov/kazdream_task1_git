@@ -1,4 +1,7 @@
-from random import randint
+"""
+Module c
+"""
+from random import sample
 from copy import deepcopy
 from typing import List
 
@@ -49,8 +52,7 @@ class BingoPlayer(Observer):
         # Присвоить игроку имя
         self._name = name
         # Сформировать билетик с пятью случайными числами в диапазоне от 1 до 99
-        self._ticket = [randint(1, 99) for _ in range(5)]
-        print(self._ticket)
+        self._ticket = sample(range(1, 100), 5)
 
     def clone(self) -> 'BingoPlayer':
         """
@@ -67,8 +69,7 @@ class BingoPlayer(Observer):
         if current_number in self._ticket:
             self._ticket.remove(current_number)
             if self._ticket == []:
-                print('stop')
-                print(self._name)
+                print(f'{self._name.upper()} BINGO!!!')
                 subject.game_state = False
 
 
