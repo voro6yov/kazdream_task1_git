@@ -1,5 +1,7 @@
 """
 Module contains BingoPlayer class.
+
+Developed by Valentin Vorobyov.
 """
 from random import sample
 from copy import deepcopy

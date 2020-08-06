@@ -1,5 +1,7 @@
 """
 Module contains BingoGame class.
+
+Developed by Valentin Vorobyov.
 """
 from typing import List
 from random import choice
